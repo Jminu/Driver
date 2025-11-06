@@ -25,7 +25,7 @@ static irqreturn_t btn_irq_handler(int irq, void *dev_id) {
         led_state = 0;
         printk(KERN_INFO "gpio set 0\n");
     }
-    return IRQ_HANDLED;
+    return IRQ_HANDLED;                                                                                                                                                        
 }
 
 static int __init led_btn_init(void) {
@@ -47,7 +47,7 @@ static int __init led_btn_init(void) {
         return -1;
     }
 
-    ret = request_irq(gpio_irq_num, btn_irq_handler, IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING, DRIVER_NAME, NULL);
+    ret = request_irq(gpio_irq_num, btn_irq_handler, IRQF_TRIGGER_RISING, DRIVER_NAME, NULL);
     if (ret < 0) {
         printk(KERN_INFO "irq request fail\n");
         return -1;
