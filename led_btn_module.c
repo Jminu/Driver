@@ -25,7 +25,7 @@ static irqreturn_t btn_irq_handler(int irq, void *dev_id) {
     return IRQ_HANDLED;
 }
 
-static int __init led_btn_init() {
+static int __init led_btn_init(void) {
     int ret;
 
     if (gpio_request(GPIO_BTN, DRIVER_NAME) != 0) { // gpio설정 요청
@@ -36,12 +36,12 @@ static int __init led_btn_init() {
         return -1;
     }
 
-    gpio_irq_num = gpio_to_irq(GPIO_BTN, DRIVER_NAME); // gpio를 irq에 등록 요청
+    gpio_irq_num = gpio_to_irq(GPIO_BTN); // gpio를 irq에 등록 요청
     if (gpio_irq_num < 0) {
         return -1;
     }
 
-    ret = request_irq(gpio_irq_num, btn_irq_handler, IRQF_TRIGGER_FALLING, NULL);
+    ret = request_irq(gpio_irq_num, btn_irq_handler, IRQF_TRIGGER_FALLING,DRIVER_NAME ,NULL);
     if (ret < 0) {
         return -1;
     }
@@ -50,7 +50,7 @@ static int __init led_btn_init() {
         return -1;
     }
 
-    if (gpio_direction_output(GPIO_LED) != 0) {
+    if (gpio_direction_output(GPIO_LED, 0) != 0) {
         return -1;
     }
 
@@ -58,7 +58,7 @@ static int __init led_btn_init() {
     return 0;
 }
 
-static void __exit led_btn_exit() {
+static void __exit led_btn_exit(void) {
     gpio_free(GPIO_BTN);
     gpio_free(GPIO_LED);
     free_irq(gpio_irq_num, NULL);
