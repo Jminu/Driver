@@ -18,10 +18,12 @@ static int gpio_irq_num = 0;
 static irqreturn_t btn_irq_handler(int irq, void *dev_id) {
     if (led_state == 0) {
         gpio_set_value(GPIO_LED, 1);
+        led_state = 1;
         printk(KERN_INFO "gpio set 1\n");
     }
     else {
         gpio_set_value(GPIO_LED, 0);
+        led_state = 0;
         printk(KERN_INFO "gpio set 0\n");
     }
     return IRQ_HANDLED;
