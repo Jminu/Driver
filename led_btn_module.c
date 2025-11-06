@@ -9,7 +9,7 @@
 
 #define DRIVER_NAME "led_btn_driver"
 #define GPIO_LED 528
-#define GPIO_BTN 531
+#define GPIO_BTN 537
 
 static int btn_state = 0;
 static int led_state = 0;
