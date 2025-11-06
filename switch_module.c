@@ -10,7 +10,7 @@
 
 #define DRIVER_NAME "switch_driver"
 #define GPIO_LED 529
-#define GPIO_SWITCH 531
+#define GPIO_BTN 531
 
 static int btn_state = 0; // 초기 0
 static int gpio_irq_num = 0;
@@ -30,20 +30,20 @@ static irqreturn_t btn_interrupt_handler(int irq, void *dev_id) {
 }
 
 static int __init switch_module_init(void) {
-	if (gpio_request(GPIO_SWITCH, DRIVER_NAME) != 0) {
+	if (gpio_request(GPIO_BTN, DRIVER_NAME) != 0) {
 		printk(KERN_ERR "switch gpio request fail\n");
 		return -1;
 	}
 
-	if (gpio_direction_input(GPIO_SWITCH) != 0) {
+	if (gpio_direction_input(GPIO_BTN) != 0) {
 		printk(KERN_ERR "switch to input fail\n");
 		return -1;
 	}
 
-	gpio_irq_num = gpio_to_irq(GPIO_SWITCH);
+	gpio_irq_num = gpio_to_irq(GPIO_BTN);
 	if (gpio_irq_num < 0) {
 		printk(KERN_ERR "fail to get irq number\n");
-		gpio_free(GPIO_SWITCH);
+		gpio_free(GPIO_BTN);
 		return -1;
 	}
 
@@ -59,7 +59,7 @@ static int __init switch_module_init(void) {
 }
 
 static void __exit switch_module_exit(void) {
-	gpio_free(GPIO_SWITCH);
+	gpio_free(GPIO_BTN);
 	free_irq(gpio_irq_num, NULL);
 	printk(KERN_INFO "gpio switch module unloaded\n");
 }

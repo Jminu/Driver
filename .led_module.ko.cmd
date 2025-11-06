@@ -1,1 +1,0 @@
-savedcmd_/project/driver_prac/led_module.ko := ld -r -EL  -maarch64elf -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /project/driver_prac/led_module.ko /project/driver_prac/led_module.o /project/driver_prac/led_module.mod.o /project/driver_prac/.module-common.o
