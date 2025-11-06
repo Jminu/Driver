@@ -11,7 +11,6 @@
 #define GPIO_LED 528
 #define GPIO_BTN 537
 
-static int btn_state = 0;
 static int led_state = 0;
 static int gpio_irq_num = 0;
 
@@ -48,7 +47,7 @@ static int __init led_btn_init(void) {
         return -1;
     }
 
-    ret = request_irq(gpio_irq_num, btn_irq_handler, IRQF_TRIGGER_FALLING,DRIVER_NAME ,NULL);
+    ret = request_irq(gpio_irq_num, btn_irq_handler, IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING, DRIVER_NAME, NULL);
     if (ret < 0) {
         printk(KERN_INFO "irq request fail\n");
         return -1;
