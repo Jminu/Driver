@@ -8,8 +8,8 @@
 #include <linux/cdev.h>
 
 #define DRIVER_NAME "led_btn_driver"
-#define GPIO_LED 528
-#define GPIO_BTN 537
+#define GPIO_LED 529
+#define GPIO_BTN 538
 
 static int led_state = 0;
 static int gpio_irq_num = 0;
