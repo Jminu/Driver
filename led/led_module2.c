@@ -5,21 +5,22 @@
 #include <linux/cdev.h>
 #include <linux/fs.h>
 #include <linux/device.h>
+#include <linux/timer.h>
 
 #define GPIO_LED 529
 #define DRIVER_NAME "led_driver"
 #define CLASS_NAME "LED"
 
 static dev_t dev_num;
-static cdev led_cdev;
+static struct cdev led_cdev;
 static struct class led_class;
 static struct device *led_dev;
 
-static blink(int gpio) {
+static void blink(int gpio) {
     while (1) {
-        gpio_set_value(GPIO_LED, 0);
+        gpio_set_value(gpio, 0);
         sleep(1);
-        gpio_set_value(GPIO_LED, 1);
+        gpio_set_value(gpio, 1);
     }
 }
 
@@ -71,13 +72,13 @@ static int __init led_module_init() {
 
 static void __exit led_module_exit() {
     gpio_free(GPIO_LED);
-    device_destroy();
-    class_destroy();
+    device_destroy(&led_class, dev_num);
+    class_destroy(&led_class);
     printk("module unload\n");
 }
 
-module_init();
-module_exit();
+module_init(led_module_init);
+module_exit(led_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("JIN MINU");
