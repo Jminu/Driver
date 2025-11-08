@@ -13,7 +13,7 @@
 
 static dev_t dev_num;
 static struct cdev led_cdev;
-static struct class led_class;
+static struct class *led_class;
 static struct device *led_dev;
 
 static void blink(int gpio) {
@@ -64,7 +64,7 @@ static int __init led_module_init(void) {
     }
 
     led_class = class_create(CLASS_NAME);
-    led_dev = device_create(&led_class, NULL, dev_num, NULL, DRIVER_NAME);
+    led_dev = device_create(led_class, NULL, dev_num, NULL, DRIVER_NAME);
 
     printk(KERN_INFO "init success\n");
     return 1;
