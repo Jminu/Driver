@@ -22,7 +22,7 @@ static void blink(int gpio) {
         msleep(200);
 
         gpio_set_value(gpio, 1);
-        msleep(200)
+        msleep(200);
     }
     gpio_set_value(gpio, 1);
 }
@@ -78,7 +78,7 @@ static void __exit led_module_exit(void) {
     device_destroy(led_class, dev_num);
     class_destroy(led_class);
     cdev_del(&led_cdev);
-    unregister_chrdev_region(led_num, 1);
+    unregister_chrdev_region(dev_num, 1);
     printk(KERN_INFO "module unload\n");
 }
 
