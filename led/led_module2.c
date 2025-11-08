@@ -50,7 +50,7 @@ static int __init led_module_init(void) {
     ret = gpio_request(GPIO_LED, "LED GPIO");
     ret = gpio_direction_output(GPIO_LED, 0);
 
-    ret = alloc_chrdev_region(&dev_num, 0, 0, DRIVER_NAME);
+    ret = alloc_chrdev_region(&dev_num, 0, 1, DRIVER_NAME);
     if (ret != 0) {
         printk(KERN_ERR "device number alloc fail\n");
         return -1;
@@ -67,7 +67,7 @@ static int __init led_module_init(void) {
     led_dev = device_create(led_class, NULL, dev_num, NULL, DRIVER_NAME);
 
     printk(KERN_INFO "init success\n");
-    return 1;
+    return 0;
 }
 
 static void __exit led_module_exit(void) {
