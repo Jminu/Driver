@@ -50,14 +50,14 @@ static int __init led_module_init(void) {
     ret = gpio_request(GPIO_LED, "LED GPIO");
     ret = gpio_direction_output(GPIO_LED, 0);
 
-    ret = alloc_chrdev_region(&dev_num, 0, 1, DRIVER_NAME);
+    ret = alloc_chrdev_region(&dev_num, 0, 0, DRIVER_NAME);
     if (ret != 0) {
         printk(KERN_ERR "device number alloc fail\n");
         return -1;
     }
 
     cdev_init(&led_cdev, &fops);
-    ret = cdev_add(&led_cdev, dev_num, 0);
+    ret = cdev_add(&led_cdev, dev_num, 1);
     if (ret != 0) {
         printk(KERN_ERR "cdev add fail\n");
         return -1;
