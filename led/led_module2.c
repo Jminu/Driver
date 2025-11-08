@@ -72,8 +72,8 @@ static int __init led_module_init(void) {
 
 static void __exit led_module_exit(void) {
     gpio_free(GPIO_LED);
-    device_destroy(&led_class, dev_num);
-    class_destroy(&led_class);
+    device_destroy(led_class, dev_num);
+    class_destroy(led_class);
     printk(KERN_INFO "module unload\n");
 }
 
