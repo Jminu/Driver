@@ -1,4 +1,4 @@
-obj-m += st7735_driver.o 
+obj-m += 7735_driver.o 
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
