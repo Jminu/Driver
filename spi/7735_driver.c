@@ -15,20 +15,20 @@ static struct st7735_priv {
 
 // spi드라이버를 디바이스에 바인딩
 static int st7735_custom_probe(struct spi_device *spi) {
-    struct device *dev = &spi->dev;
+    // struct device *dev = &spi->dev; // @spi->dev: driver model representation of the device
     struct st7735_priv *priv;
     int ret;
 
-    priv = devm_kzalloc(dev, sizeof(struct st7735_priv), GFP_KERNEL);
+    priv = devm_kzalloc(&(spi->dev), sizeof(struct st7735_priv), GFP_KERNEL); // spi디바이스를 위한 메모리할당
     priv->spi = spi;
 
-    priv->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-    priv->dc = devm_gipod_get(dev, "dc", GPIOD_OUT_HIGH);
-    priv->bl = devm_gpiod_get(dev, "bl", GPIOD_OUT_HIGH);
+    priv->reset = devm_gpiod_get(&(spi->dev), "reset", GPIOD_OUT_HIGH);
+    priv->dc = devm_gipod_get(&(spi->dev), "dc", GPIOD_OUT_HIGH);
+    priv->bl = devm_gpiod_get(&(spi->dev), "bl", GPIOD_OUT_HIGH);
 
     spi_set_drvdata(spi, priv);
-    
-    printk(KERN_INFO "Probe func success\n");
+
+    printk(KERN_INFO "Probe func success: reset=%d dc=%d bl=%d\n", desc_to_gpio(priv->reset), desc_to_gpio(priv->dc), desv_to_gpio(priv->bl));
 
     return 0;
 }
