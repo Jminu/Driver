@@ -138,7 +138,7 @@ static int st7735_custom_probe(struct spi_device *spi) {
 
     spi_set_drvdata(spi, priv);
 
-    st7735_hw_init(spi, priv);
+    st7735_hw_init(priv);
 
     gpiod_set_value(priv->reset, 0);
     mdelay(100);
