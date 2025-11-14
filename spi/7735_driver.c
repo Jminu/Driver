@@ -12,6 +12,10 @@
 #define LCD_WIDTH 160
 #define LCD_HEIGHT 128
 
+static void update_st7735_lcd(struct fb_info *info, struct list_head *pagelist);
+
+
+
 static struct st7735_priv {
     struct spi_device *spi;
     struct gpio_desc *reset; // BCM 22
@@ -90,16 +94,17 @@ static int st7735_custom_probe(struct spi_device *spi) {
     int vmem_size = LCD_WIDTH * LCD_HEIGHT * 2;
     priv->vmem = vzalloc(vmem_size); // ram 공간 할당
     
-    info_screen_base = (char __iomem *)priv->vmem;
+    info->screen_base = (char __iomem *)priv->vmem;
     info->fix.smem_start (unsigned long)priv->vmem;
     info->fix.smem_len = vmem_size;
 
     strscpy(info->fix.id, "st7735_custom", sizeof(info->fix.id));
     info->fix.type = FB_TYPE_PACKED_PIXELS;
     info->fix.visual = FB_VISUAL_TRUECOLOR;
-    info->fix.line_length = ST7735_WIDTH * 2; // 한 줄의 바이트 수
-    info->var.xres = ST7735_WIDTH; info->var.yres = ST7735_HEIGHT;
-    info->var.xres_virtual = ST7735_WIDTH; info->var.yres_virtual = ST7735_HEIGHT;
+    info->fix.line_length = LCD_WIDTH * 2; // 한 줄의 바이트 수
+    info->var.xres = LCD_WIDTH; info->var.yres = ST7735_HEIGHT;
+    info->var.xres_virtual = LCD_WIDTH;
+    info->var.yres_virtual = LCD_HEIGHT;
     info->var.bits_per_pixel = 16;
     info->var.red.offset = 11; info->var.red.length = 5;     // R(5)
     info->var.green.offset = 5; info->var.green.length = 6;  // G(6)
