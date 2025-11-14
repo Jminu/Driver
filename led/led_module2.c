@@ -7,7 +7,7 @@
 #include <linux/device.h>
 #include <linux/delay.h>
 
-#define GPIO_LED 529
+#define GPIO_LED 525
 #define DRIVER_NAME "led_driver"
 #define CLASS_NAME "LED"
 
