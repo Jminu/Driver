@@ -251,15 +251,15 @@ static void st7735_set_addr_window(struct st7735_priv *priv, int x, int y, int w
     int y_end = y + h - 1 + Y_OFFSET;
 
     st7735_write_cmd(priv, 0x2A); // CASET: 열 주소를 가져옴
-    caset_data[0] = (x >> 8) & 0xFF; // 8칸 오른쪽으로 밀고 (1111 1111)하고 and연산: 상위 8비트
-    caset_data[1] = x & 0xFF; // 하위 8비트
+    caset_data[0] = (x_start >> 8) & 0xFF; // 8칸 오른쪽으로 밀고 (1111 1111)하고 and연산: 상위 8비트
+    caset_data[1] = x_start & 0xFF; // 하위 8비트
     caset_data[2] = (x_end >> 8) & 0xFF;
     caset_data[3] = x_end & 0xFF;
     st7735_write_data(priv, caset_data, 4);
 
     st7735_write_cmd(priv, 0x2B); //RASET: 행 주소 가져옴
-    raset_data[0] = (y >> 8) & 0xFF;
-    raset_data[1] = y & 0xFF;
+    raset_data[0] = (y_start >> 8) & 0xFF;
+    raset_data[1] = y_start & 0xFF;
     raset_data[2] = (y_end >> 8) & 0xFF;
     raset_data[3] = y_end & 0xFF;
     st7735_write_data(priv, raset_data, 4);
