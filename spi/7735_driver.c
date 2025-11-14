@@ -14,8 +14,6 @@
 
 static void update_st7735_lcd(struct fb_info *info, struct list_head *pagelist);
 
-
-
 static struct st7735_priv {
     struct spi_device *spi;
     struct gpio_desc *reset; // BCM 22
@@ -66,6 +64,11 @@ static int st7735_custom_probe(struct spi_device *spi) {
     printk(KERN_INFO "probe function called\n");
 
     info == framebuffer_alloc(sizeof(struct st7735_priv), dev);
+    if (info == NULL) {
+        printk(KERN_ERR "framebuffer alloc fail\n");
+        return -1;
+    }
+    
     priv = info->par;
     priv->info = info;
     priv->spi = spi;
