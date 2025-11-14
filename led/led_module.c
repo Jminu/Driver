@@ -55,6 +55,7 @@ static int __init led_module_init(void) {
 		printk(KERN_ERR "gpio request fail\n");
 		return -1;
 	}
+	gpio_direction_output(GPIO_LED, 0);
 
 	cdev_init(&led_cdev, &fops);
 	ret = cdev_add(&led_cdev, led_num, 1);
