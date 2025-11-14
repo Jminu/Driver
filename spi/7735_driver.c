@@ -65,7 +65,7 @@ static int st7735_custom_probe(struct spi_device *spi) {
     int ret;
     printk(KERN_INFO "probe function called\n");
 
-    info == framebuffer_alloc(sizeof(st7735_priv), dev);
+    info == framebuffer_alloc(sizeof(struct st7735_priv), dev);
     priv = info->par;
     priv->info = info;
     priv->spi = spi;
@@ -102,7 +102,7 @@ static int st7735_custom_probe(struct spi_device *spi) {
     info->fix.type = FB_TYPE_PACKED_PIXELS;
     info->fix.visual = FB_VISUAL_TRUECOLOR;
     info->fix.line_length = LCD_WIDTH * 2; // 한 줄의 바이트 수
-    info->var.xres = LCD_WIDTH; info->var.yres = ST7735_HEIGHT;
+    info->var.xres = LCD_WIDTH; info->var.yres = LCD_HEIGHT;
     info->var.xres_virtual = LCD_WIDTH;
     info->var.yres_virtual = LCD_HEIGHT;
     info->var.bits_per_pixel = 16;
@@ -178,6 +178,8 @@ static void st7735_set_addr_window(struct st7735_priv *priv, int x, int y, int w
 }
 
 static void update_st7735_lcd(struct fb_info *info, struct list_head *pagelist) {
+    struct st7735_priv *priv = info->par;
+
     /* LCD의 전체 화면을 주소창으로 설정 */
     st7735_set_addr_window(priv, 0, 0, info->var.xres, info->var.yres);
     
