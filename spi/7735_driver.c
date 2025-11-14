@@ -9,8 +9,8 @@
 #include <linux/vmalloc.h>
 #include <linux/string.h>
 
-#define LCD_WIDTH 160
-#define LCD_HEIGHT 128
+#define LCD_WIDTH 128
+#define LCD_HEIGHT 160
 
 static void update_st7735_lcd(struct fb_info *info, struct list_head *pagelist);
 
