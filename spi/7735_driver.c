@@ -114,7 +114,7 @@ static void st7735_hw_init(struct st7735_priv *priv)
 
     /* 10. 메모리 접근 제어 (0x36) - 노이즈/방향 해결용 */
     st7735_write_cmd(priv, 0x36); // MADCTL
-    u8 madctl[] = { 0xC0 }; // (BGR 비트 = 0)
+    u8 madctl[] = { 0xC8 }; // (BGR 비트 = 0)
     st7735_write_data(priv, madctl, 1);
 
     st7735_write_cmd(priv, 0x28); // DISPOFF (화면을 끈 상태로 설정)
