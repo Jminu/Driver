@@ -13,7 +13,7 @@
 #define GREEN 525 // gpio19
 
 struct dev_t dev_num;
-struct cdev led_cdev
+struct cdev led_cdev;
 struct class *led_class;
 struct device *led_dev;
 
@@ -30,7 +30,7 @@ static  ssize_t led_write(struct file *file, const char __user *buf, size_t len,
     else if (command == '0') {
         gpio_set_value(RED, 0);
         gpio_set_value(GREEN, 0);
-        printk_(KERN_INFO "set 0\n");
+        printk(KERN_INFO "set 0\n");
     }
     else {
         printk(KERN_ERR "set error\n");
@@ -39,7 +39,7 @@ static  ssize_t led_write(struct file *file, const char __user *buf, size_t len,
 }
 
 static const file_operations fops = {
-    .owner = THIS_MOUDLE,
+    .owner = THIS_MODULE,
     .write = led_write,
 };
 
