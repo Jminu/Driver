@@ -38,7 +38,7 @@ static  ssize_t led_write(struct file *file, const char __user *buf, size_t len,
     return 1;
 }
 
-static const file_operations fops = {
+static const struct file_operations fops = {
     .owner = THIS_MODULE,
     .write = led_write,
 };
@@ -75,7 +75,7 @@ static void led_module_exit(void) {
     gpio_free(RED);
     gpio_free(GREEN);
 
-    printk(KENR_INFO "module unload\n");
+    printk(KERN_INFO "module unload\n");
     return;
 }
 
