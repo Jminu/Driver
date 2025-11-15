@@ -1,10 +1,8 @@
-savedcmd_/project/driver/led/.module-common.o := gcc -Wp,-MMD,/project/driver/led/..module-common.o.d -nostdinc -I/project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include -I./arch/arm64/include/generated -I/project/kernel/Kernel-Analysis/linuxSrc/linux/include -I./include -I/project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/uapi -I./arch/arm64/include/generated/uapi -I/project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi -I./include/generated/uapi -include /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler-version.h -include /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kconfig.h -include /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler_types.h -D__KERNEL__ -mlittle-endian -DCC_USING_PATCHABLE_FUNCTION_ENTRY -DKASAN_SHADOW_SCALE_SHIFT= -fmacro-prefix-map=/project/kernel/Kernel-Analysis/linuxSrc/linux/= -std=gnu11 -fshort-wchar -funsigned-char -fno-common -fno-PIE -fno-strict-aliasing -mgeneral-regs-only -DCONFIG_CC_HAS_K_CONSTRAINT=1 -Wno-psabi -mabi=lp64 -fno-asynchronous-unwind-tables -fno-unwind-tables -mbranch-protection=pac-ret -Wa,-march=armv8.5-a -DARM64_ASM_ARCH='"armv8.5-a"' -DKASAN_SHADOW_SCALE_SHIFT= -fno-delete-null-pointer-checks -O2 -fno-allow-store-data-races -fstack-protector-strong -fno-omit-frame-pointer -fno-optimize-sibling-calls -ftrivial-auto-var-init=zero -fno-stack-clash-protection -fpatchable-function-entry=4,2 -fmin-function-alignment=8 -fstrict-flex-arrays=3 -fno-strict-overflow -fno-stack-check -fconserve-stack -fno-builtin-wcslen -fno-builtin-wcslen -Wall -Wextra -Wundef -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Werror=strict-prototypes -Wno-format-security -Wno-trigraphs -Wno-frame-address -Wno-address-of-packed-member -Wmissing-declarations -Wmissing-prototypes -Wframe-larger-than=2048 -Wno-main -Wno-dangling-pointer -Wvla -Wno-pointer-sign -Wcast-function-type -Wno-array-bounds -Wno-stringop-overflow -Wno-alloc-size-larger-than -Wimplicit-fallthrough=5 -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init -Wenum-conversion -Wunused -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-packed-not-aligned -Wno-format-overflow -Wno-format-truncation -Wno-stringop-truncation -Wno-override-init -Wno-missing-field-initializers -Wno-type-limits -Wno-shift-negative-value -Wno-maybe-uninitialized -Wno-sign-compare -Wno-unused-parameter -mstack-protector-guard=sysreg -mstack-protector-guard-reg=sp_el0 -mstack-protector-guard-offset=1424 -DMODULE -DKBUILD_BASENAME='".module_common"' -DKBUILD_MODNAME='".module_common.o"' -D__KBUILD_MODNAME=kmod_.module_common.o -c -o /project/driver/led/.module-common.o /project/kernel/Kernel-Analysis/linuxSrc/linux/scripts/module-common.c
+savedcmd_/project/driver/led/led_module.o := gcc -Wp,-MMD,/project/driver/led/.led_module.o.d -nostdinc -I/project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include -I./arch/arm64/include/generated -I/project/kernel/Kernel-Analysis/linuxSrc/linux/include -I./include -I/project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/uapi -I./arch/arm64/include/generated/uapi -I/project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi -I./include/generated/uapi -include /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler-version.h -include /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kconfig.h -include /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler_types.h -D__KERNEL__ -mlittle-endian -DCC_USING_PATCHABLE_FUNCTION_ENTRY -DKASAN_SHADOW_SCALE_SHIFT= -fmacro-prefix-map=/project/kernel/Kernel-Analysis/linuxSrc/linux/= -std=gnu11 -fshort-wchar -funsigned-char -fno-common -fno-PIE -fno-strict-aliasing -mgeneral-regs-only -DCONFIG_CC_HAS_K_CONSTRAINT=1 -Wno-psabi -mabi=lp64 -fno-asynchronous-unwind-tables -fno-unwind-tables -mbranch-protection=pac-ret -Wa,-march=armv8.5-a -DARM64_ASM_ARCH='"armv8.5-a"' -DKASAN_SHADOW_SCALE_SHIFT= -fno-delete-null-pointer-checks -O2 -fno-allow-store-data-races -fstack-protector-strong -fno-omit-frame-pointer -fno-optimize-sibling-calls -ftrivial-auto-var-init=zero -fno-stack-clash-protection -fpatchable-function-entry=4,2 -fmin-function-alignment=8 -fstrict-flex-arrays=3 -fno-strict-overflow -fno-stack-check -fconserve-stack -fno-builtin-wcslen -fno-builtin-wcslen -Wall -Wextra -Wundef -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Werror=strict-prototypes -Wno-format-security -Wno-trigraphs -Wno-frame-address -Wno-address-of-packed-member -Wmissing-declarations -Wmissing-prototypes -Wframe-larger-than=2048 -Wno-main -Wno-dangling-pointer -Wvla -Wno-pointer-sign -Wcast-function-type -Wno-array-bounds -Wno-stringop-overflow -Wno-alloc-size-larger-than -Wimplicit-fallthrough=5 -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init -Wenum-conversion -Wunused -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-packed-not-aligned -Wno-format-overflow -Wno-format-truncation -Wno-stringop-truncation -Wno-override-init -Wno-missing-field-initializers -Wno-type-limits -Wno-shift-negative-value -Wno-maybe-uninitialized -Wno-sign-compare -Wno-unused-parameter -mstack-protector-guard=sysreg -mstack-protector-guard-reg=sp_el0 -mstack-protector-guard-offset=1424  -DMODULE  -DKBUILD_BASENAME='"led_module"' -DKBUILD_MODNAME='"led_module"' -D__KBUILD_MODNAME=kmod_led_module -c -o /project/driver/led/led_module.o /project/driver/led/led_module.c  
 
-source_/project/driver/led/.module-common.o := /project/kernel/Kernel-Analysis/linuxSrc/linux/scripts/module-common.c
+source_/project/driver/led/led_module.o := /project/driver/led/led_module.c
 
-deps_/project/driver/led/.module-common.o := \
-    $(wildcard include/config/UNWINDER_ORC) \
-    $(wildcard include/config/MITIGATION_RETPOLINE) \
+deps_/project/driver/led/led_module.o := \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler-version.h \
     $(wildcard include/config/CC_VERSION_TEXT) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kconfig.h \
@@ -26,6 +24,7 @@ deps_/project/driver/led/.module-common.o := \
     $(wildcard include/config/CC_HAS_ASM_INLINE) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler_attributes.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler-gcc.h \
+    $(wildcard include/config/MITIGATION_RETPOLINE) \
     $(wildcard include/config/ARCH_USE_BUILTIN_BSWAP) \
     $(wildcard include/config/SHADOW_CALL_STACK) \
     $(wildcard include/config/KCOV) \
@@ -33,38 +32,24 @@ deps_/project/driver/led/.module-common.o := \
     $(wildcard include/config/ARM64_PTR_AUTH_KERNEL) \
     $(wildcard include/config/ARM64_PTR_AUTH) \
     $(wildcard include/config/BUILTIN_RETURN_ADDRESS_STRIPS_PAC) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/module.h \
-    $(wildcard include/config/MODULES) \
-    $(wildcard include/config/SYSFS) \
-    $(wildcard include/config/MODULES_TREE_LOOKUP) \
-    $(wildcard include/config/LIVEPATCH) \
-    $(wildcard include/config/STACKTRACE_BUILD_ID) \
-    $(wildcard include/config/ARCH_USES_CFI_TRAPS) \
-    $(wildcard include/config/MODULE_SIG) \
-    $(wildcard include/config/GENERIC_BUG) \
-    $(wildcard include/config/KALLSYMS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kernel.h \
+    $(wildcard include/config/PREEMPT_VOLUNTARY_BUILD) \
+    $(wildcard include/config/PREEMPT_DYNAMIC) \
+    $(wildcard include/config/HAVE_PREEMPT_DYNAMIC_CALL) \
+    $(wildcard include/config/HAVE_PREEMPT_DYNAMIC_KEY) \
+    $(wildcard include/config/PREEMPT_) \
+    $(wildcard include/config/DEBUG_ATOMIC_SLEEP) \
     $(wildcard include/config/SMP) \
-    $(wildcard include/config/TRACEPOINTS) \
-    $(wildcard include/config/TREE_SRCU) \
-    $(wildcard include/config/BPF_EVENTS) \
-    $(wildcard include/config/JUMP_LABEL) \
+    $(wildcard include/config/MMU) \
+    $(wildcard include/config/PROVE_LOCKING) \
     $(wildcard include/config/TRACING) \
-    $(wildcard include/config/EVENT_TRACING) \
     $(wildcard include/config/FTRACE_MCOUNT_RECORD) \
-    $(wildcard include/config/KPROBES) \
-    $(wildcard include/config/HAVE_STATIC_CALL_INLINE) \
-    $(wildcard include/config/KUNIT) \
-    $(wildcard include/config/PRINTK_INDEX) \
-    $(wildcard include/config/MODULE_UNLOAD) \
-    $(wildcard include/config/MITIGATION_ITS) \
-    $(wildcard include/config/CONSTRUCTORS) \
-    $(wildcard include/config/FUNCTION_ERROR_INJECTION) \
-    $(wildcard include/config/DYNAMIC_DEBUG_CORE) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/list.h \
-    $(wildcard include/config/LIST_HARDENED) \
-    $(wildcard include/config/DEBUG_LIST) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/container_of.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/build_bug.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/stdarg.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/align.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/const.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/const.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/const.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/array_size.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/compiler.h \
     $(wildcard include/config/TRACE_BRANCH_PROFILING) \
     $(wildcard include/config/PROFILE_ALL_BRANCHES) \
@@ -100,15 +85,29 @@ deps_/project/driver/led/.module-common.o := \
     $(wildcard include/config/KCSAN) \
     $(wildcard include/config/KCSAN_WEAK_MEMORY) \
     $(wildcard include/config/KCSAN_IGNORE_ATOMICS) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/poison.h \
-    $(wildcard include/config/ILLEGAL_POINTER_VALUE) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/const.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/const.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/const.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/limits.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/limits.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/limits.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/linkage.h \
+    $(wildcard include/config/ARCH_USE_SYM_ANNOTATIONS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/stringify.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/export.h \
+    $(wildcard include/config/MODVERSIONS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/linkage.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/container_of.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/build_bug.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/bitops.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/bits.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/bits.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/bits.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/overflow.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/typecheck.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/kernel.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/sysinfo.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/bitops/generic-non-atomic.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/barrier.h \
     $(wildcard include/config/ARM64_PSEUDO_NMI) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/alternative-macros.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/bits.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/cpucaps.h \
     $(wildcard include/config/ARM64_PAN) \
     $(wildcard include/config/ARM64_EPAN) \
@@ -130,30 +129,7 @@ deps_/project/driver/led/.module-common.o := \
   arch/arm64/include/generated/asm/cpucap-defs.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/insn-def.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/brk-imm.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/stringify.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/barrier.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/stat.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/stat.h \
-    $(wildcard include/config/COMPAT) \
-  arch/arm64/include/generated/uapi/asm/stat.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/asm-generic/stat.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/time.h \
-    $(wildcard include/config/POSIX_TIMERS) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/cache.h \
-    $(wildcard include/config/ARCH_HAS_CACHE_LINE_SIZE) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/kernel.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/sysinfo.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/cache.h \
-    $(wildcard include/config/KASAN_HW_TAGS) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/bitops.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/bits.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/bits.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/overflow.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/limits.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/limits.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/limits.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/typecheck.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/bitops/generic-non-atomic.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/bitops.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/bitops/builtin-__ffs.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/bitops/builtin-ffs.h \
@@ -173,12 +149,8 @@ deps_/project/driver/led/.module-common.o := \
     $(wildcard include/config/ARM64_LSE_ATOMICS) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/atomic_ll_sc.h \
     $(wildcard include/config/CC_HAS_K_CONSTRAINT) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/export.h \
-    $(wildcard include/config/MODVERSIONS) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/linkage.h \
-    $(wildcard include/config/ARCH_USE_SYM_ANNOTATIONS) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/linkage.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/alternative.h \
+    $(wildcard include/config/MODULES) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/init.h \
     $(wildcard include/config/MEMORY_HOTPLUG) \
     $(wildcard include/config/HAVE_ARCH_PREL32_RELOCATIONS) \
@@ -205,6 +177,87 @@ deps_/project/driver/led/.module-common.o := \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/asm-generic/swab.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/byteorder/generic.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/bitops/ext2-atomic-setbit.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/hex.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kstrtox.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/log2.h \
+    $(wildcard include/config/ARCH_HAS_ILOG2_U32) \
+    $(wildcard include/config/ARCH_HAS_ILOG2_U64) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/math.h \
+  arch/arm64/include/generated/asm/div64.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/div64.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/minmax.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/panic.h \
+    $(wildcard include/config/PANIC_TIMEOUT) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/printk.h \
+    $(wildcard include/config/MESSAGE_LOGLEVEL_DEFAULT) \
+    $(wildcard include/config/CONSOLE_LOGLEVEL_DEFAULT) \
+    $(wildcard include/config/CONSOLE_LOGLEVEL_QUIET) \
+    $(wildcard include/config/EARLY_PRINTK) \
+    $(wildcard include/config/PRINTK) \
+    $(wildcard include/config/PRINTK_INDEX) \
+    $(wildcard include/config/DYNAMIC_DEBUG) \
+    $(wildcard include/config/DYNAMIC_DEBUG_CORE) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kern_levels.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/ratelimit_types.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/param.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/uapi/asm/param.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/param.h \
+    $(wildcard include/config/HZ) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/asm-generic/param.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/spinlock_types_raw.h \
+    $(wildcard include/config/DEBUG_SPINLOCK) \
+    $(wildcard include/config/DEBUG_LOCK_ALLOC) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/spinlock_types.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/qspinlock_types.h \
+    $(wildcard include/config/NR_CPUS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/qrwlock_types.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/lockdep_types.h \
+    $(wildcard include/config/PROVE_RAW_LOCK_NESTING) \
+    $(wildcard include/config/LOCKDEP) \
+    $(wildcard include/config/LOCK_STAT) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/once_lite.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/sprintf.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/static_call_types.h \
+    $(wildcard include/config/HAVE_STATIC_CALL) \
+    $(wildcard include/config/HAVE_STATIC_CALL_INLINE) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/instruction_pointer.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/wordpart.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/module.h \
+    $(wildcard include/config/SYSFS) \
+    $(wildcard include/config/MODULES_TREE_LOOKUP) \
+    $(wildcard include/config/LIVEPATCH) \
+    $(wildcard include/config/STACKTRACE_BUILD_ID) \
+    $(wildcard include/config/ARCH_USES_CFI_TRAPS) \
+    $(wildcard include/config/MODULE_SIG) \
+    $(wildcard include/config/GENERIC_BUG) \
+    $(wildcard include/config/KALLSYMS) \
+    $(wildcard include/config/TRACEPOINTS) \
+    $(wildcard include/config/TREE_SRCU) \
+    $(wildcard include/config/BPF_EVENTS) \
+    $(wildcard include/config/JUMP_LABEL) \
+    $(wildcard include/config/EVENT_TRACING) \
+    $(wildcard include/config/KPROBES) \
+    $(wildcard include/config/KUNIT) \
+    $(wildcard include/config/MODULE_UNLOAD) \
+    $(wildcard include/config/MITIGATION_ITS) \
+    $(wildcard include/config/CONSTRUCTORS) \
+    $(wildcard include/config/FUNCTION_ERROR_INJECTION) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/list.h \
+    $(wildcard include/config/LIST_HARDENED) \
+    $(wildcard include/config/DEBUG_LIST) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/poison.h \
+    $(wildcard include/config/ILLEGAL_POINTER_VALUE) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/stat.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/stat.h \
+    $(wildcard include/config/COMPAT) \
+  arch/arm64/include/generated/uapi/asm/stat.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/asm-generic/stat.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/time.h \
+    $(wildcard include/config/POSIX_TIMERS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/cache.h \
+    $(wildcard include/config/ARCH_HAS_CACHE_LINE_SIZE) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/cache.h \
+    $(wildcard include/config/KASAN_HW_TAGS) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kasan-enabled.h \
     $(wildcard include/config/KASAN) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/static_key.h \
@@ -226,9 +279,6 @@ deps_/project/driver/led/.module-common.o := \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/mte-def.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/math64.h \
     $(wildcard include/config/ARCH_SUPPORTS_INT128) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/math.h \
-  arch/arm64/include/generated/asm/div64.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/div64.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/math64.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/time64.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/vdso/time64.h \
@@ -237,11 +287,6 @@ deps_/project/driver/led/.module-common.o := \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/time32.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/timex.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/timex.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/linux/param.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/uapi/asm/param.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/param.h \
-    $(wildcard include/config/HZ) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/uapi/asm-generic/param.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/timex.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/arch_timer.h \
     $(wildcard include/config/ARM_ARCH_TIMER_OOL_WORKAROUND) \
@@ -266,52 +311,6 @@ deps_/project/driver/led/.module-common.o := \
     $(wildcard include/config/GENERIC_BUG_RELATIVE_POINTERS) \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/instrumentation.h \
     $(wildcard include/config/NOINSTR_VALIDATION) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/once_lite.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/panic.h \
-    $(wildcard include/config/PANIC_TIMEOUT) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/printk.h \
-    $(wildcard include/config/MESSAGE_LOGLEVEL_DEFAULT) \
-    $(wildcard include/config/CONSOLE_LOGLEVEL_DEFAULT) \
-    $(wildcard include/config/CONSOLE_LOGLEVEL_QUIET) \
-    $(wildcard include/config/EARLY_PRINTK) \
-    $(wildcard include/config/PRINTK) \
-    $(wildcard include/config/DYNAMIC_DEBUG) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/stdarg.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kern_levels.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/ratelimit_types.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/spinlock_types_raw.h \
-    $(wildcard include/config/DEBUG_SPINLOCK) \
-    $(wildcard include/config/DEBUG_LOCK_ALLOC) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/spinlock_types.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/qspinlock_types.h \
-    $(wildcard include/config/NR_CPUS) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/asm-generic/qrwlock_types.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/lockdep_types.h \
-    $(wildcard include/config/PROVE_RAW_LOCK_NESTING) \
-    $(wildcard include/config/LOCKDEP) \
-    $(wildcard include/config/LOCK_STAT) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kernel.h \
-    $(wildcard include/config/PREEMPT_VOLUNTARY_BUILD) \
-    $(wildcard include/config/PREEMPT_DYNAMIC) \
-    $(wildcard include/config/HAVE_PREEMPT_DYNAMIC_CALL) \
-    $(wildcard include/config/HAVE_PREEMPT_DYNAMIC_KEY) \
-    $(wildcard include/config/PREEMPT_) \
-    $(wildcard include/config/DEBUG_ATOMIC_SLEEP) \
-    $(wildcard include/config/MMU) \
-    $(wildcard include/config/PROVE_LOCKING) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/align.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/array_size.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/hex.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/kstrtox.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/log2.h \
-    $(wildcard include/config/ARCH_HAS_ILOG2_U32) \
-    $(wildcard include/config/ARCH_HAS_ILOG2_U64) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/minmax.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/sprintf.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/static_call_types.h \
-    $(wildcard include/config/HAVE_STATIC_CALL) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/instruction_pointer.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/wordpart.h \
   /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/cpumask.h \
     $(wildcard include/config/FORCE_NR_CPUS) \
     $(wildcard include/config/HOTPLUG_CPU) \
@@ -968,15 +967,57 @@ deps_/project/driver/led/.module-common.o := \
     $(wildcard include/config/HAVE_MOD_ARCH_SPECIFIC) \
     $(wildcard include/config/MODULES_USE_ELF_REL) \
     $(wildcard include/config/MODULES_USE_ELF_RELA) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/build-salt.h \
-    $(wildcard include/config/BUILD_SALT) \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/elfnote.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/elfnote-lto.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/vermagic.h \
-    $(wildcard include/config/PREEMPT_BUILD) \
-  include/generated/utsrelease.h \
-  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/vermagic.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/gpio.h \
+    $(wildcard include/config/GPIOLIB) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/gpio/consumer.h \
+    $(wildcard include/config/ACPI) \
+    $(wildcard include/config/GPIO_SYSFS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/cdev.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/device.h \
+    $(wildcard include/config/GENERIC_MSI_IRQ) \
+    $(wildcard include/config/ENERGY_MODEL) \
+    $(wildcard include/config/PINCTRL) \
+    $(wildcard include/config/ARCH_HAS_DMA_OPS) \
+    $(wildcard include/config/DMA_DECLARE_COHERENT) \
+    $(wildcard include/config/DMA_CMA) \
+    $(wildcard include/config/SWIOTLB) \
+    $(wildcard include/config/SWIOTLB_DYNAMIC) \
+    $(wildcard include/config/ARCH_HAS_SYNC_DMA_FOR_DEVICE) \
+    $(wildcard include/config/ARCH_HAS_SYNC_DMA_FOR_CPU) \
+    $(wildcard include/config/ARCH_HAS_SYNC_DMA_FOR_CPU_ALL) \
+    $(wildcard include/config/DMA_OPS_BYPASS) \
+    $(wildcard include/config/DMA_NEED_SYNC) \
+    $(wildcard include/config/IOMMU_DMA) \
+    $(wildcard include/config/PM) \
+    $(wildcard include/config/PM_SLEEP) \
+    $(wildcard include/config/OF) \
+    $(wildcard include/config/DEVTMPFS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/dev_printk.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/energy_model.h \
+    $(wildcard include/config/SCHED_DEBUG) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/sched/cpufreq.h \
+    $(wildcard include/config/CPU_FREQ) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/sched/topology.h \
+    $(wildcard include/config/SCHED_CLUSTER) \
+    $(wildcard include/config/SCHED_MC) \
+    $(wildcard include/config/CPU_FREQ_GOV_SCHEDUTIL) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/sched/idle.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/sched/sd_flags.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/ioport.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/klist.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/pm.h \
+    $(wildcard include/config/VT_CONSOLE_SLEEP) \
+    $(wildcard include/config/CXL_SUSPEND) \
+    $(wildcard include/config/PM_CLK) \
+    $(wildcard include/config/PM_GENERIC_DOMAINS) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/device/bus.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/device/class.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/device/devres.h \
+    $(wildcard include/config/HAS_IOMEM) \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/device/driver.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/arch/arm64/include/asm/device.h \
+  /project/kernel/Kernel-Analysis/linuxSrc/linux/include/linux/pm_wakeup.h \
 
-/project/driver/led/.module-common.o: $(deps_/project/driver/led/.module-common.o)
+/project/driver/led/led_module.o: $(deps_/project/driver/led/led_module.o)
 
-$(deps_/project/driver/led/.module-common.o):
+$(deps_/project/driver/led/led_module.o):
