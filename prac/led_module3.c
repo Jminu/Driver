@@ -79,8 +79,8 @@ static void led_module_exit(void) {
     return;
 }
 
-module_init();
-module_exit();
+module_init(led_module_init);
+module_exit(led_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("JIN MINU");
