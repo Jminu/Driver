@@ -12,7 +12,7 @@
 #define RED 531 // gpio13
 #define GREEN 525 // gpio19
 
-struct dev_t dev_num;
+dev_t dev_num;
 struct cdev led_cdev;
 struct class *led_class;
 struct device *led_dev;
