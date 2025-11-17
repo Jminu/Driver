@@ -7,13 +7,14 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/fs.h>
-
+#include <linux/spinlock.h>
 
 #define BTN 533
 #define BUF_SIZE 64
 
 static int btn_cnt = 0;
 static int irq_num = 0;
+static spinlock_t btn_cnt_lock;
 
 static dev_t dev_num;
 static struct cdev chr_dev;
@@ -21,7 +22,9 @@ static struct class *chr_class;
 static struct device *dev;
 
 static irqreturn_t btn_isr(int irq, void *data) {
+	spin_lock(&btn_cnt_lock); // spinlock
 	btn_cnt++;
+	spin_unlock(&btn_cnt_lock);
 	printk(KERN_INFO "버튼 누른 횟수: %d\n", btn_cnt);
 
 	return IRQ_HANDLED;
@@ -29,7 +32,12 @@ static irqreturn_t btn_isr(int irq, void *data) {
 
 static ssize_t read_btn_cnt(struct file *file, char __user *buf, size_t len, loff_t *pos) {
 	char chr[BUF_SIZE];
+	unsigned long flag;
+
+	spin_lock_irqsave(&btn_cnt_lock, flag); // spinlock guard interrupt
 	int str_len = snprintf(chr, BUF_SIZE, "%d\n", btn_cnt);
+	spin_lock_irqrestore(&btn_cnt_lock, flag); // restore
+	
 	if (*pos > 0) {
 		printk(KERN_ERR "pos error\n");
 		return 0;
@@ -89,6 +97,7 @@ static void exit_device(void) {
 
 static int __init btn_module_init(void) {
 	int ret;
+	spin_lock_init(&btn_cnt_lock); // spinlock init
 
 	ret = gpio_request_one(BTN, GPIOF_IN, "button");
 	if (ret != 0) {
