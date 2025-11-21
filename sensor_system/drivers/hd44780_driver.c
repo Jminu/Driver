@@ -60,8 +60,8 @@
 #define E (1 << 2) // 펄스
 #define BL (1 << 3) // 백라이트
 
-#define LCD_CLEARDISPLAY 0x1
-#define LCD_RETURNHOME 0x2
+#define LCD_CLEARDISPLAY 0x01
+#define LCD_RETURNHOME 0x02
 #define LCD_FUNCTIONSET 0x28
 #define LCD_DISPLAYON 0x0C
 #define LCD_DISPLAYOFF 0x08
@@ -98,16 +98,16 @@ static int i2c_lcd_write_byte(struct i2c_client *client, u8 byte) { // u8: unsig
  * 	RS:1 데이터 전송
  */
 static void lcd_send_nibble(struct i2c_client *client, u8 data, u8 mode) {
-	u8 result_byte;
+	u8 byte_no_e = data | BL | mode;
+	u8 byte_with_e = data | BL | E | mode;
 	
-	result_byte = data | BL | E | RW | mode; // pulse한번 주고 
-	i2c_lcd_write_byte(client, result_byte);
-
+	i2c_lcd_write_byte(client, byte_no_e);
 	udelay(10);
 
-	result_byte = data | BL | RW | mode; // pulse 빼주고
-	i2c_lcd_write_byte(client, result_byte);
+	i2c_lcd_write_byte(client, byte_with_e);
+	udelay(10);
 
+	i2c_lcd_write_byte(client, byte_no_e);
 	udelay(50);
 }
 
@@ -116,7 +116,7 @@ static void lcd_send_nibble(struct i2c_client *client, u8 data, u8 mode) {
  */
 static void lcd_send_byte(struct i2c_client *client, u8 data, u8 mode) {
 	lcd_send_nibble(client, data & 0xF0, mode); // 상위 4비트 보냄
-	lcd_send_nibble(client, (data << 4), mode); // 하위 4비트 보냄
+	lcd_send_nibble(client, (data << 4) & 0xF0, mode); // 하위 4비트 보냄
 }
 
 /*
@@ -136,25 +136,36 @@ static void lcd_init(struct i2c_client *client) {
 
 	// 처음은 8비트 모드
 	lcd_send_nibble(client, 0x30, 0x00);
+	msleep(10);
 	lcd_send_nibble(client, 0x30, 0x00);
+	udelay(150);
 	lcd_send_nibble(client, 0x30, 0x00);
-	udelay(50);
+	udelay(150);
+	printk(KERN_INFO "8비트 모드로 변경\n");
+
 
 	lcd_send_nibble(client, 0x20, 0x00);
+	udelay(100);	
+	printk(KERN_INFO "4비트 모드로 변경\n");
 
+	lcd_write_cmd(client, LCD_FUNCTIONSET);
 	lcd_write_cmd(client, LCD_DISPLAYON); // display on
-	lcd_write_cmd(client, LCD_DISPLAYOFF); // display off
-	lcd_write_cmd(client, LCD_DISPLAYON); // display on
-
 	lcd_write_cmd(client, LCD_CLEARDISPLAY); // 화면 지움
 	lcd_write_cmd(client, LCD_ENTRYMODESET); // 커서 우측 이동
-						 //
+	
+
 	printk(KERN_INFO "lcd init success\n");
 }
 
-static void lcd_print(struct i2c_client *client, char *str) {
+static void lcd_print(struct i2c_client *client, const char *str) {
+	int i = 0;
 	while (*str) {
 		lcd_write_data(client, *str++);
+		i++;
+	}
+
+	for(; i < 16; i++) {
+		lcd_write_data(client, ' ');
 	}
 }
 
@@ -234,6 +245,7 @@ static void hd44780_remove(struct i2c_client *client) {
 	cdev_del(&(hd44780->hd44780_cdev));
 	unregister_chrdev_region(hd44780->dev_num, 1);
 
+	printk(KERN_INFO "remove success\n");
 	return;
 }
 
