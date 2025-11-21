@@ -6,6 +6,7 @@
 #include <linux/init.h>
 #include <linux/i2c.h>
 #include <linux/gpio.h>
+#include <linux/cdev.h>
 
 #define DRIVER_NAME "hd44780_driver"
 #define DEVICE_COUNT 1
@@ -63,6 +64,7 @@
 #define LCD_RETURNHOME 0x2
 #define LCD_FUNCTIONSET 0x28
 #define LCD_DISPLAYON 0x0C
+#define LCD_DISPLAYOFF 0x08
 #define LCD_ENTRYMODESET 0x06
 
 static struct hd44780_device {
@@ -92,6 +94,8 @@ static int i2c_lcd_write_byte(struct i2c_client *client, u8 byte) { // u8: unsig
 /*
  * 4비트(데이터)에 나머지 4비트(제어비트) 결합 총 8비트 전송
  * @mode: register set (RS)
+ * 	RS:0 명령 전송
+ * 	RS:1 데이터 전송
  */
 static void lcd_send_nibble(struct i2c_client *client, u8 data, u8 mode) {
 	u8 result_byte;
@@ -110,7 +114,7 @@ static void lcd_send_nibble(struct i2c_client *client, u8 data, u8 mode) {
 /*
  * 상위 4비트와 하위 4비트를 보냄
  */
-static void lcd_send_byte(struct client *client, u8 data, u8 mode) {
+static void lcd_send_byte(struct i2c_client *client, u8 data, u8 mode) {
 	lcd_send_nibble(client, data & 0xF0, mode); // 상위 4비트 보냄
 	lcd_send_nibble(client, (data << 4), mode); // 하위 4비트 보냄
 }
@@ -120,11 +124,132 @@ static void lcd_send_byte(struct client *client, u8 data, u8 mode) {
  * ex) 4비트 모드-> 상위비트 0010 보냄
  */
 static void lcd_write_cmd(struct i2c_client *client, u8 cmd) {
-	lcd_send_byte(client, cmd, 0x00); // 0x00은 하위비트이므로 상관X
+	lcd_send_byte(client, cmd, 0x00); // 0x00: RS=0
 }
 
 static void lcd_write_data(struct i2c_client *client, char data) {
-	lcd_send_byte(client, data, RS);
+	lcd_send_byte(client, data, RS); // 0x01: RS=1
 }
 
+static void lcd_init(struct i2c_client *client) {
+	msleep(50);
+
+	// 처음은 8비트 모드
+	lcd_send_nibble(client, 0x30, 0x00);
+	lcd_send_nibble(client, 0x30, 0x00);
+	lcd_send_nibble(client, 0x30, 0x00);
+	udelay(50);
+
+	lcd_send_nibble(client, 0x20, 0x00);
+
+	lcd_write_cmd(client, LCD_DISPLAYON); // display on
+	lcd_write_cmd(client, LCD_DISPLAYOFF); // display off
+	lcd_write_cmd(client, LCD_DISPLAYON); // display on
+
+	lcd_write_cmd(client, LCD_CLEARDISPLAY); // 화면 지움
+	lcd_write_cmd(client, LCD_ENTRYMODESET); // 커서 우측 이동
+						 //
+	printk(KERN_INFO "lcd init success\n");
+}
+
+static void lcd_print(struct i2c_client *client, char *str) {
+	while (*str) {
+		lcd_write_data(client, *str++);
+	}
+}
+
+static ssize_t hd44780_write(struct file *file, const char __user *buf, size_t len, loff_t *pos) {
+	struct hd44780_device *hd44780 = file->private_data;
+	char kbuf[32];
+
+	if (len > 31)
+		len = 31;
+
+	int ret;
+	ret = copy_from_user(kbuf, buf, len);
+
+	lcd_write_cmd(hd44780->client, LCD_CLEARDISPLAY);
+	lcd_print(hd44780->client, kbuf);
+
+	return len;
+}
+
+static int hd44780_open(struct inode *inode, struct file *file) {
+	struct hd44780_device *hd44780;
+	hd44780 = container_of(inode->i_cdev, struct hd44780_device, hd44780_cdev);
+	file->private_data = hd44780;
+
+	return 0;
+}
+
+static const struct file_operations fops = {
+	.owner = THIS_MODULE,
+	.open = hd44780_open,
+	.write = hd44780_write,
+};
+
+
+static int hd44780_probe(struct i2c_client *client) {
+	struct hd44780_device *hd44780;
+	int ret;
+
+	hd44780 = devm_kzalloc(&client->dev, sizeof(struct hd44780_device), GFP_KERNEL);
+	if (hd44780 < 0) {
+		printk(KERN_ERR "devm kzalloc fail\n");
+		return -1;
+	}
+
+	hd44780->client = client;
+
+	i2c_set_clientdata(client, hd44780);
+
+	lcd_init(client); // 초기화 작업
+
+	ret = alloc_chrdev_region(&(hd44780->dev_num), 0, 1, DEVICE_NAME);
+	if (ret < 0) {
+		printk(KERN_ERR "alloc chrdev region fail\n");
+		return -1;
+	}
+
+	cdev_init(&(hd44780->hd44780_cdev), &fops);
+	ret = cdev_add(&(hd44780->hd44780_cdev), hd44780->dev_num, DEVICE_COUNT);
+	if (ret < 0) {
+		printk(KERN_ERR "cdev add fail\n");
+		return -1;
+	}
+
+	hd44780->class = class_create(CLASS_NAME);
+	device_create(hd44780->class, NULL, hd44780->dev_num, NULL, DEVICE_NAME);
+
+	printk(KERN_INFO "probe success\n");
+
+	return 0;
+}
+
+static void hd44780_remove(struct i2c_client *client) {
+	struct hd44780_device *hd44780 = i2c_get_clientdata(client);
+	
+	device_destroy(hd44780->class, hd44780->dev_num);
+	class_destroy(hd44780->class);
+	cdev_del(&(hd44780->hd44780_cdev));
+	unregister_chrdev_region(hd44780->dev_num, 1);
+
+	return;
+}
+
+static struct i2c_driver hd44780_driver = {
+	.driver = {
+		.name = "jmw_hd44780",
+		.of_match_table = hd44780_ids,
+	},
+	.probe = hd44780_probe,
+	.remove = hd44780_remove,
+};
+
+module_i2c_driver(hd44780_driver);
+
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("JIN MINU");
+MODULE_DESCRIPTION("HD44780+extension module driver");
 
