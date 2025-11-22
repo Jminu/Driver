@@ -162,7 +162,7 @@ static void lcd_print(struct i2c_client *client, const char *str, int len) {
 	printk(KERN_INFO "strlen: %d\n", len);
 
 	for (int i = 0; i < 16; i++) {
-		if (*str == '\n') {
+		if (*str == '\0') {
 			lcd_write_data(client, ' ');
 			continue;
 		}
