@@ -15,39 +15,53 @@
 #define CLASS_NAME "hd44780_class"
 
 /*
- * Write / Read mode 로 구분,
- * Read mode: input data가 port에서 mcu로
- * Write mode: output data가 port로
- * 
  * i2c address: 0100 A2 A1 A0 -> 0x27
  *
  * RS: select register
- * 	0: instruction register (for writing)
- * 	1: data register (for read)
+ * 	- 0: transferring instruction data
+ * 	- 1: transferring display data
  *
  * RW: select Write or Read
- * 	0: Write
- * 	1: Read
+ * 	- 0: Write mode
+ * 	- 1: Read mode (not used this driver)
  *
- * E: Start data read / write
+ * E: data enable
  *
  * DB4 ~ DB7: 상위 4비트
- *
  * DB0 ~ DB3: 하위 4비트
  * 
- * Example:
- * 	|RS|RW|DB7|DB6|DB5|DB4|DB3|DB2|DB1|DB0|
- * 	 0  0   0   0   0   0   0   0   0   1
- * 	 = CLEAR DISPLAY instruction
- *
+ * 4비트 모드에서 상위 4비트만 사용, 하위 4비트 열어둠
+ * 이때, 2번 읽는다.
  * 
- * D: display
- * C: cursor
- * B: blink
- * I/D: increment, decrement
- * DL: set data length
- * N: set number of data line
- * F: set charactor font	
+ * D
+ * 	- 0: display off
+ * 	- 1: display on
+ * 
+ * C
+ * 	- 0: cursor off
+ * 	- 1: cursor on
+ * 
+ * B
+ * 	- 0: cursor blink off
+ * 	- 1: cursor blink on
+ * 
+ * DL
+ * 	- 0: 4-bit interface
+ * 	- 1: 8-bit interface
+ * 
+ * 
+ * When turning on power supply, LCD module will execute reset routine automatically (takes 50ms)
+ * After the reset routines, the LCD module status will be as follow.
+ * 	- Display clear
+ * 	- DL = 1
+ * 	- N = 0
+ * 	- F = 0
+ * 	- D = 0
+ * 	- C = 0
+ * 	- B = 0
+ * 	- I/D = 1
+ * 	- S = 0
+ * 	처음 전원 공급하면 다음과 같은 상태가 됨.
  */
 
 /*
@@ -83,7 +97,9 @@ MODULE_DEVICE_TABLE(of, hd44780_ids);
 
 static int i2c_lcd_write_byte(struct i2c_client *client, u8 byte) { // u8: unsigned char
 	int ret;
-	ret = i2c_smbus_write_byte(client, byte); // 1바이트 i2c에 write
+
+	ret = i2c_smbus_write_byte(client, byte); // 상위 7비트: i2c slave주소, 하위 1비트 R/W 설정, -> i2c_write는 자동으로 하위 1비트를 W로 설정
+
 	if (ret < 0) {
 		printk(KERN_ERR "i2c write fail\n");
 		return -1;
@@ -93,27 +109,27 @@ static int i2c_lcd_write_byte(struct i2c_client *client, u8 byte) { // u8: unsig
 }
 
 /*
- * 4비트(데이터)에 나머지 4비트(제어비트) 결합 총 8비트 전송
+ * 4비트(데이터)에 나머지 4비트(제어비트) 결합
  * @mode: register set (RS)
- * 	RS:0 명령 전송
- * 	RS:1 데이터 전송
+ * 	- RS:0 명령 전송
+ * 	- RS:1 데이터 전송
  */
 static void lcd_send_nibble(struct i2c_client *client, u8 data, u8 mode) {
 	u8 byte_no_e = data | BL | mode;
 	u8 byte_with_e = data | BL | E | mode;
 	
-	i2c_lcd_write_byte(client, byte_no_e);
+	i2c_lcd_write_byte(client, byte_no_e); // 펄스 없는 바이트 보냄
 	udelay(10);
 
-	i2c_lcd_write_byte(client, byte_with_e);
+	i2c_lcd_write_byte(client, byte_with_e); // 펄스 있는 바이트 보냄
 	udelay(10);
 
-	i2c_lcd_write_byte(client, byte_no_e);
+	i2c_lcd_write_byte(client, byte_no_e); // 펄스 없는 바이트 보냄 -> 하강엣지에서 LCD에 데이터가 들어가게됨
 	udelay(50);
 }
 
 /*
- * 상위 4비트와 하위 4비트를 보냄
+ * 4bit 모드에서,
  */
 static void lcd_send_byte(struct i2c_client *client, u8 data, u8 mode) {
 	lcd_send_nibble(client, data & 0xF0, mode); // 상위 4비트 보냄
@@ -123,11 +139,17 @@ static void lcd_send_byte(struct i2c_client *client, u8 data, u8 mode) {
 /*
  * lcd에 명령 전송-> 어떤 모드로 할지
  * ex) 4비트 모드-> 상위비트 0010 보냄
+ * @client: i2c slave 주소 (0x27)
+ * @cmd: 내릴 명령
  */
 static void lcd_write_cmd(struct i2c_client *client, u8 cmd) {
 	lcd_send_byte(client, cmd, 0x00); // 0x00: RS=0
 }
 
+/* 
+ * @client: i2c slave 주소 (0x27)
+ * @data: write할 데이터 
+ */
 static void lcd_write_data(struct i2c_client *client, char data) {
 	lcd_send_byte(client, data, RS); // 0x01: RS=1
 }
