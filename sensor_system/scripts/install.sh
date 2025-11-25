@@ -3,7 +3,7 @@ cd ../drivers/
 echo "---- Driver Build ----"
 make clean && make
 
-echo "---- Removing Old Module"
+echo "---- Removing Old Module ----"
 rmmod hd44780_driver
 rmmod sht20_driver
 rmmod irq_btn_driver

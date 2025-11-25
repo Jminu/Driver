@@ -63,7 +63,7 @@ int main(void) {
 			else if (system_mode[0] == '1') {
 				*shmaddr_c = '1';
 			}
-			usleep(100000);
+			usleep(1000000);
 		}
 	}
 	else if (pid > 0) { // parent -> read sensor and write LCD
